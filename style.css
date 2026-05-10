@@ -273,13 +273,13 @@ input:focus{
 
 /* ESCONDER */
 
-.overlay.hidden{
+#overlay.hidden{
 
   opacity:0;
 
   pointer-events:none;
 
-  display:flex;
+  visibility:hidden;
 }
 
 /* =========================
