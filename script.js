@@ -49,7 +49,8 @@ let runningCount = 0;
 
 let keepCount = false;
 
-let cardSpeed = 650;
+let cardSpeed = Number(speedRange.value);
+speedValue.textContent = cardSpeed;
 
 /* =========================
    CRIAR DECK
@@ -290,11 +291,9 @@ function sleep(ms){
 
 speedRange.addEventListener("input", () => {
 
-  cardSpeed =
-    Number(speedRange.value);
+  cardSpeed = Number(speedRange.value);
 
-  speedValue.textContent =
-    cardSpeed;
+  speedValue.textContent = cardSpeed;
 
 });
 /* =========================
