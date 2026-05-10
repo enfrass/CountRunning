@@ -3,7 +3,6 @@ const startBtn = document.getElementById("startBtn");
 
 const overlay = document.getElementById("overlay");
 
-const answerArea = document.getElementById("answerArea");
 const countInput = document.getElementById("countInput");
 
 const submitBtn = document.getElementById("submitBtn");
@@ -30,6 +29,10 @@ const values = [
 let shoe = [];
 let runningCount = 0;
 
+/* =========================
+   CRIAR DECK
+========================= */
+
 function createDeck(){
 
   let deck = [];
@@ -50,6 +53,10 @@ function createDeck(){
   return deck;
 }
 
+/* =========================
+   CRIAR SHOE
+========================= */
+
 function createShoe(decks = 6){
 
   shoe = [];
@@ -63,6 +70,10 @@ function createShoe(decks = 6){
   shuffle(shoe);
 }
 
+/* =========================
+   EMBARALHAR
+========================= */
+
 function shuffle(array){
 
   for(let i = array.length - 1; i > 0; i--){
@@ -72,6 +83,10 @@ function shuffle(array){
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+
+/* =========================
+   VALOR HI-LO
+========================= */
 
 function getCardValue(card){
 
@@ -85,6 +100,10 @@ function getCardValue(card){
 
   return 0;
 }
+
+/* =========================
+   ROUND
+========================= */
 
 async function startRound(){
 
@@ -110,25 +129,37 @@ async function startRound(){
 
     runningCount += getCardValue(card);
 
+    /* RESETAR ANIMAÇÃO */
+
     cardDiv.classList.remove("animate");
 
     void cardDiv.offsetWidth;
 
     cardDiv.classList.add("animate");
 
+    /* MOSTRAR CARTA */
+
     cardDiv.textContent = `${card.value}${card.suit}`;
 
+    /* COR */
+
     if(["♥","♦"].includes(card.suit)){
+
       cardDiv.classList.add("red");
       cardDiv.classList.remove("black");
+
     }
     else{
+
       cardDiv.classList.add("black");
       cardDiv.classList.remove("red");
+
     }
 
     await sleep(650);
   }
+
+  /* FINAL */
 
   cardDiv.textContent = "?";
 
@@ -138,7 +169,23 @@ async function startRound(){
   overlay.classList.remove("hidden");
 }
 
+/* =========================
+   BOTÃO INICIAR
+========================= */
+
+startBtn.addEventListener("click", () => {
+
+  startRound();
+
+});
+
+/* =========================
+   CONFIRMAR RESPOSTA
+========================= */
+
 submitBtn.addEventListener("click", () => {
+
+  if(countInput.value === "") return;
 
   const userAnswer = Number(countInput.value);
 
@@ -160,5 +207,19 @@ submitBtn.addEventListener("click", () => {
   startBtn.classList.remove("hidden");
 
 });
- 
+
+/* =========================
+   SLEEP
+========================= */
+
+function sleep(ms){
+
+  return new Promise(resolve => setTimeout(resolve, ms));
+
+}
+
+/* =========================
+   INICIAR SHOE
+========================= */
+
 createShoe();
