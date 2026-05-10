@@ -28,6 +28,7 @@ const values = [
 
 let shoe = [];
 let runningCount = 0;
+let keepCount = false;
 
 /* =========================
    CRIAR DECK
@@ -115,7 +116,9 @@ async function startRound(){
 
   countInput.value = "";
 
+  if(!keepCount){
   runningCount = 0;
+}
 
   let cardsToShow = 20;
 
