@@ -1,4 +1,5 @@
 const cardDiv = document.getElementById("card");
+
 const startBtn = document.getElementById("startBtn");
 const continueBtn = document.getElementById("continueBtn");
 
@@ -7,7 +8,12 @@ const overlay = document.getElementById("overlay");
 const countInput = document.getElementById("countInput");
 
 const submitBtn = document.getElementById("submitBtn");
+
 const resultText = document.getElementById("result");
+
+/* =========================
+   CARTAS
+========================= */
 
 const suits = ["♠", "♥", "♦", "♣"];
 
@@ -27,8 +33,14 @@ const values = [
   "K"
 ];
 
+/* =========================
+   VARIÁVEIS
+========================= */
+
 let shoe = [];
+
 let runningCount = 0;
+
 let keepCount = false;
 
 /* =========================
@@ -87,7 +99,7 @@ function shuffle(array){
 }
 
 /* =========================
-   VALOR HI-LO
+   SISTEMA HI-LO
 ========================= */
 
 function getCardValue(card){
@@ -111,22 +123,36 @@ async function startRound(){
 
   startBtn.classList.add("hidden");
 
+  continueBtn.classList.add("hidden");
+
   resultText.textContent = "";
 
   overlay.classList.add("hidden");
 
   countInput.value = "";
 
+  /* RESETAR SOMENTE
+     SE NÃO ESTIVER
+     CONTINUANDO */
+
   if(!keepCount){
-  runningCount = 0;
-}
+
+    runningCount = 0;
+  }
 
   let cardsToShow = 20;
 
   for(let i = 0; i < cardsToShow; i++){
 
+    /* RESHUFFLE */
+
     if(shoe.length === 0){
+
       createShoe();
+
+      runningCount = 0;
+
+      keepCount = false;
     }
 
     const card = shoe.pop();
@@ -143,9 +169,10 @@ async function startRound(){
 
     /* MOSTRAR CARTA */
 
-    cardDiv.textContent = `${card.value}${card.suit}`;
+    cardDiv.textContent =
+      `${card.value}${card.suit}`;
 
-    /* COR */
+    /* COR DA CARTA */
 
     if(["♥","♦"].includes(card.suit)){
 
@@ -157,13 +184,12 @@ async function startRound(){
 
       cardDiv.classList.add("black");
       cardDiv.classList.remove("red");
-
     }
 
     await sleep(650);
   }
 
-  /* FINAL */
+  /* FINAL DA RODADA */
 
   cardDiv.textContent = "?";
 
@@ -188,53 +214,8 @@ startBtn.addEventListener("click", () => {
 });
 
 /* =========================
-   CONFIRMAR RESPOSTA
+   BOTÃO CONTINUAR
 ========================= */
-
-submitBtn.addEventListener("click", () => {
-
-  if(countInput.value === "") return;
-
-  const userAnswer = Number(countInput.value);
-
-  overlay.classList.add("hidden");
-
- if(userAnswer === runningCount){
-
-  resultText.textContent =
-    "🔥 Correto!";
-
-  continueBtn.classList.remove("hidden");
-}
-else{
-
-  resultText.textContent =
-    `❌ Errado! Running Count era ${runningCount}`;
-
-  keepCount = false;
-}
-
-  startBtn.textContent = "Jogar Novamente";
-
-  startBtn.classList.remove("hidden");
-
-});
-
-/* =========================
-   SLEEP
-========================= */
-
-function sleep(ms){
-
-  return new Promise(resolve => setTimeout(resolve, ms));
-
-}
-
-/* =========================
-   INICIAR SHOE
-========================= */
-
-createShoe();
 
 continueBtn.addEventListener("click", () => {
 
@@ -245,3 +226,60 @@ continueBtn.addEventListener("click", () => {
   startRound();
 
 });
+
+/* =========================
+   CONFIRMAR RESPOSTA
+========================= */
+
+submitBtn.addEventListener("click", () => {
+
+  if(countInput.value === "") return;
+
+  const userAnswer =
+    Number(countInput.value);
+
+  overlay.classList.add("hidden");
+
+  /* ACERTOU */
+
+  if(userAnswer === runningCount){
+
+    resultText.textContent =
+      "🔥 Correto!";
+
+    continueBtn.classList.remove("hidden");
+  }
+
+  /* ERROU */
+
+  else{
+
+    resultText.textContent =
+      `❌ Errado! Running Count era ${runningCount}`;
+
+    keepCount = false;
+
+    startBtn.textContent =
+      "Jogar Novamente";
+
+    startBtn.classList.remove("hidden");
+  }
+
+});
+
+/* =========================
+   SLEEP
+========================= */
+
+function sleep(ms){
+
+  return new Promise(resolve =>
+    setTimeout(resolve, ms)
+  );
+}
+
+/* =========================
+   INICIAR SHOE
+========================= */
+
+createShoe();
