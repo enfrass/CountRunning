@@ -1,5 +1,11 @@
 const cardDiv = document.getElementById("card");
 
+const speedRange =
+  document.getElementById("speedRange");
+
+const speedValue =
+  document.getElementById("speedValue");
+
 const startBtn = document.getElementById("startBtn");
 const continueBtn = document.getElementById("continueBtn");
 
@@ -42,6 +48,8 @@ let shoe = [];
 let runningCount = 0;
 
 let keepCount = false;
+
+let cardSpeed = 650;
 
 /* =========================
    CRIAR DECK
@@ -147,6 +155,12 @@ async function startRound(){
     /* RESHUFFLE */
 
     if(shoe.length === 0){
+       speedRange.addEventListener("input", () => {
+          cardSpeed =
+             Number(speedRange.value);
+          speedValue.textContent =
+             cardSpeed;
+});
 
       createShoe();
 
@@ -185,8 +199,7 @@ async function startRound(){
       cardDiv.classList.add("black");
       cardDiv.classList.remove("red");
     }
-
-    await sleep(650);
+     await sleep(cardSpeed);
   }
 
   /* FINAL DA RODADA */
