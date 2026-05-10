@@ -86,8 +86,13 @@ function getCardValue(card){
 
 async function startRound(){
 
+  startBtn.classList.add("hidden");
+
   resultText.textContent = "";
+
   answerArea.classList.add("hidden");
+
+  countInput.value = "";
 
   runningCount = 0;
 
@@ -105,12 +110,25 @@ async function startRound(){
 
     cardDiv.textContent = `${card.value}${card.suit}`;
 
-    await sleep(800);
+    if(["♥","♦"].includes(card.suit)){
+      cardDiv.classList.add("red");
+      cardDiv.classList.remove("black");
+    }
+    else{
+      cardDiv.classList.add("black");
+      cardDiv.classList.remove("red");
+    }
+
+    await sleep(700);
   }
 
   cardDiv.textContent = "?";
 
+  cardDiv.classList.remove("red");
+  cardDiv.classList.remove("black");
+
   answerArea.classList.remove("hidden");
+
 }
 
 function sleep(ms){
@@ -136,6 +154,10 @@ submitBtn.addEventListener("click", () => {
     resultText.textContent =
       `❌ Errado! Running Count era ${runningCount}`;
   }
+
+  startBtn.textContent = "Jogar Novamente";
+
+  startBtn.classList.remove("hidden");
 
 });
  
