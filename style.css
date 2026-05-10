@@ -385,3 +385,11 @@ input:focus{
       translateY(0);
   }
 }
+/* =========================
+   HIDDEN
+========================= */
+
+.hidden{
+
+  display:none !important;
+}
