@@ -20,8 +20,8 @@ body{
     radial-gradient(circle at top, #1f1f1f 0%, #050505 70%);
 
   color:white;
-
-  overflow:hidden;
+  
+  overflow-x:hidden;
 }
 
 /* =========================
