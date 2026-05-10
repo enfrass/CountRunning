@@ -1,6 +1,8 @@
 const cardDiv = document.getElementById("card");
 const startBtn = document.getElementById("startBtn");
 
+const overlay = document.getElementById("overlay");
+
 const answerArea = document.getElementById("answerArea");
 const countInput = document.getElementById("countInput");
 
@@ -90,7 +92,7 @@ async function startRound(){
 
   resultText.textContent = "";
 
-  answerArea.classList.add("hidden");
+  overlay.classList.add("hidden");
 
   countInput.value = "";
 
@@ -108,6 +110,12 @@ async function startRound(){
 
     runningCount += getCardValue(card);
 
+    cardDiv.classList.remove("animate");
+
+    void cardDiv.offsetWidth;
+
+    cardDiv.classList.add("animate");
+
     cardDiv.textContent = `${card.value}${card.suit}`;
 
     if(["♥","♦"].includes(card.suit)){
@@ -119,7 +127,7 @@ async function startRound(){
       cardDiv.classList.remove("red");
     }
 
-    await sleep(700);
+    await sleep(650);
   }
 
   cardDiv.textContent = "?";
@@ -127,27 +135,19 @@ async function startRound(){
   cardDiv.classList.remove("red");
   cardDiv.classList.remove("black");
 
-  answerArea.classList.remove("hidden");
-
+  overlay.classList.remove("hidden");
 }
-
-function sleep(ms){
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-startBtn.addEventListener("click", () => {
-
-  startRound();
-
-});
 
 submitBtn.addEventListener("click", () => {
 
   const userAnswer = Number(countInput.value);
 
+  overlay.classList.add("hidden");
+
   if(userAnswer === runningCount){
 
-    resultText.textContent = "🔥 Correto!";
+    resultText.textContent =
+      "🔥 Correto!";
   }
   else{
 
