@@ -155,12 +155,6 @@ async function startRound(){
     /* RESHUFFLE */
 
     if(shoe.length === 0){
-       speedRange.addEventListener("input", () => {
-          cardSpeed =
-             Number(speedRange.value);
-          speedValue.textContent =
-             cardSpeed;
-});
 
       createShoe();
 
@@ -290,7 +284,19 @@ function sleep(ms){
     setTimeout(resolve, ms)
   );
 }
+/* =========================
+   VELOCIDADE
+========================= */
 
+speedRange.addEventListener("input", () => {
+
+  cardSpeed =
+    Number(speedRange.value);
+
+  speedValue.textContent =
+    cardSpeed;
+
+});
 /* =========================
    INICIAR SHOE
 ========================= */
