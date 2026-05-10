@@ -189,3 +189,126 @@ input:focus{
       0 0 45px rgba(0,255,170,0.35);
   }
 }
+.overlay{
+
+  position:fixed;
+
+  top:0;
+  left:0;
+
+  width:100%;
+  height:100%;
+
+  background:rgba(0,0,0,0.75);
+
+  backdrop-filter:blur(5px);
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:100;
+
+  opacity:1;
+  transition:0.3s;
+}
+
+.overlay.hidden{
+  opacity:0;
+  pointer-events:none;
+}
+
+/* MODAL */
+
+.modal{
+
+  width:90%;
+  max-width:420px;
+
+  background:
+    linear-gradient(145deg, #1b1b1b, #101010);
+
+  border:2px solid rgba(0,255,170,0.15);
+
+  border-radius:24px;
+
+  padding:35px;
+
+  text-align:center;
+
+  box-shadow:
+    0 0 50px rgba(0,255,170,0.15);
+
+  animation:modalPop 0.25s ease;
+}
+
+.modal h2{
+
+  margin-bottom:25px;
+
+  font-size:28px;
+}
+
+.modal input{
+
+  width:100%;
+
+  margin-bottom:20px;
+}
+
+.modal button{
+
+  width:100%;
+
+  margin-top:0;
+}
+
+/* ANIMAÇÃO DA CARTA */
+
+.card.animate{
+
+  animation:cardThrow 0.45s ease;
+}
+
+@keyframes cardThrow{
+
+  0%{
+    transform:
+      translateY(0)
+      rotate(0deg)
+      scale(1);
+  }
+
+  40%{
+    transform:
+      translateY(25px)
+      rotate(-6deg)
+      scale(0.97);
+  }
+
+  100%{
+    transform:
+      translateY(0)
+      rotate(0deg)
+      scale(1);
+  }
+}
+
+/* POPUP */
+
+@keyframes modalPop{
+
+  from{
+    opacity:0;
+    transform:
+      scale(0.8)
+      translateY(20px);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      scale(1)
+      translateY(0);
+  }
+}
