@@ -1,5 +1,6 @@
 const cardDiv = document.getElementById("card");
 const startBtn = document.getElementById("startBtn");
+const continueBtn = document.getElementById("continueBtn");
 
 const overlay = document.getElementById("overlay");
 
@@ -178,6 +179,10 @@ async function startRound(){
 
 startBtn.addEventListener("click", () => {
 
+  keepCount = false;
+
+  continueBtn.classList.add("hidden");
+
   startRound();
 
 });
@@ -194,16 +199,20 @@ submitBtn.addEventListener("click", () => {
 
   overlay.classList.add("hidden");
 
-  if(userAnswer === runningCount){
+ if(userAnswer === runningCount){
 
-    resultText.textContent =
-      "🔥 Correto!";
-  }
-  else{
+  resultText.textContent =
+    "🔥 Correto!";
 
-    resultText.textContent =
-      `❌ Errado! Running Count era ${runningCount}`;
-  }
+  continueBtn.classList.remove("hidden");
+}
+else{
+
+  resultText.textContent =
+    `❌ Errado! Running Count era ${runningCount}`;
+
+  keepCount = false;
+}
 
   startBtn.textContent = "Jogar Novamente";
 
@@ -226,3 +235,13 @@ function sleep(ms){
 ========================= */
 
 createShoe();
+
+continueBtn.addEventListener("click", () => {
+
+  keepCount = true;
+
+  continueBtn.classList.add("hidden");
+
+  startRound();
+
+});
