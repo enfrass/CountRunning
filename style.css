@@ -393,3 +393,36 @@ input:focus{
 
   display:none !important;
 }
+/* =========================
+   VELOCIDADE
+========================= */
+
+.speedControl{
+
+  width:100%;
+
+  max-width:320px;
+
+  margin-top:30px;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:10px;
+}
+
+.speedControl label{
+
+  font-size:16px;
+
+  text-align:center;
+
+  color:rgba(255,255,255,0.85);
+}
+
+#speedRange{
+
+  width:100%;
+
+  cursor:pointer;
+}
