@@ -1,3 +1,9 @@
+const tutorialOverlay =
+  document.getElementById("tutorialOverlay");
+
+const tutorialBtn =
+  document.getElementById("tutorialBtn");
+
 const cardDiv = document.getElementById("card");
 
 const speedRange =
@@ -294,6 +300,11 @@ speedRange.addEventListener("input", () => {
   cardSpeed = Number(speedRange.value);
 
   speedValue.textContent = cardSpeed;
+
+});
+tutorialBtn.addEventListener("click", () => {
+
+  tutorialOverlay.classList.add("hidden");
 
 });
 /* =========================
